@@ -1,2 +1,9 @@
-https://sfrecpark.org/destination/carl-larsen-park/sava-pool/	Sava Pool
+https://sfrecpark.org/destination/angelo-j-rossi-playground/rossi-community-pool/	Rossi Pool
+https://sfrecpark.org/destination/balboa-park/balboa-pool/	Balboa Pool
 https://sfrecpark.org/destination/bay-view-playground/martin-luther-king-jr-pool/	MLK Pool
+https://sfrecpark.org/destination/carl-larsen-park/sava-pool/	Sava Pool
+https://sfrecpark.org/destination/garfield-square/garfield-pool/	Garfield Pool
+https://sfrecpark.org/destination/hamilton-rec-center/hamilton-pool/	Hamilton Pool
+https://sfrecpark.org/destination/herz-playground/coffman-pool/	Coffman Pool
+https://sfrecpark.org/destination/joe-dimaggio-playground/north-beach-pool/	North Beach Pool
+https://sfrecpark.org/destination/mission-playground/mission-community-pool/	Mission Community Pool

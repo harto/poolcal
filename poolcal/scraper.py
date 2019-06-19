@@ -14,11 +14,14 @@ def parse_schedule(url):
     resp = requests.get(url, params=None, headers={'User-Agent': 'poolcal'})
     html = BeautifulSoup(resp.content, features='html.parser')
     h3s = [h3 for h3 in html.find_all('h3') if h3.text in DAYS]
-    return [
-        parse_activity(h3.text, tbody.tr)
-        for h3 in h3s
-        for tbody in h3.find_next_sibling('table').find_all('tbody')
-    ]
+    activities = []
+    for h3 in h3s:
+        table = h3.find_next_sibling('table')
+        if not table:
+            continue
+        for tbody in table.find_all('tbody'):
+            activities.append(parse_activity(h3.text, tbody.tr))
+    return activities
 
 def parse_activity(day_name, tr):
     name, raw_start_time, raw_end_time, _, _, _, raw_start_date, raw_end_date = [

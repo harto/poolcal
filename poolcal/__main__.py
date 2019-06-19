@@ -11,8 +11,13 @@ def main():
     feeds = []
     with open(SOURCES) as sources:
         for line in sources:
-            url, name = line.rstrip('\n').split('\t', 2)
-            schedule = parse_schedule(url)
+            line = line.rstrip('\n')
+            if not line: continue
+            url, name = line.split('\t', 2)
+            try:
+                schedule = parse_schedule(url)
+            except Exception as e:
+                raise Exception(f'error parsing {url}', e)
             calendar = generate_calendar(name, schedule)
             filename = name.lower().replace(' ', '-') + '.ical'
             relpath = os.path.join('feeds', filename)
