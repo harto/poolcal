@@ -1,4 +1,5 @@
 from datetime import date, datetime, timedelta
+import sys
 
 from bs4 import BeautifulSoup
 import requests
@@ -16,12 +17,22 @@ def parse_schedule(url):
     h3s = [h3 for h3 in html.find_all('h3') if h3.text in DAYS]
     activities = []
     for h3 in h3s:
-        table = h3.find_next_sibling('table')
+        table = find_associated_table(h3)
         if not table:
+            print('warning: no %s schedule found at %s' % (h3.text, url), file=sys.stderr)
             continue
         for tbody in table.find_all('tbody'):
             activities.append(parse_activity(h3.text, tbody.tr))
     return activities
+
+def find_associated_table(h3):
+    # The h3s and tables are all at the same level, so we can't just
+    # find_next_sibling('table'), because we might jump over the next heading
+    # and get the schedule for the wrong day.
+    el = h3.next_sibling
+    while el and el.name != 'table' and el.name != 'h3':
+        el = el.next_sibling
+    return el if el and el.name == 'table' else None
 
 def parse_activity(day_name, tr):
     name, raw_start_time, raw_end_time, _, _, _, raw_start_date, raw_end_date = [
@@ -59,5 +70,4 @@ def last_occurrence_of_weekday(end_date, day_name):
     return d
 
 if __name__ == '__main__':
-    import sys
-    print(parse_schedule(sys.argv[1]))
+    print('\n'.join(sorted(map(repr, parse_schedule(sys.argv[1])))))
