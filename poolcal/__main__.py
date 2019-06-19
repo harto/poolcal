@@ -24,13 +24,21 @@ def main():
             path = os.path.join(ROOT, relpath)
             with open(path, 'w') as calfile:
                 calfile.buffer.write(calendar.to_ical())
-            feeds.append((name, relpath))
+            feeds.append({
+                'name': name,
+                'feed_url': relpath,
+                'source_url': url,
+            })
 
     with open(os.path.join(ROOT, 'index.html'), 'w') as index:
         index.write(HTML_TEMPLATE % {
             'feeds': '\n      '.join(
-                f'<li><a href="{path}">{name}</a></li>'
-                for name, path in feeds
+                '<li>' \
+                '%(name)s' \
+                ' [<a href="%(feed_url)s">calendar</a>]' \
+                ' [<a href="%(source_url)s">source</a>]' \
+                '</li>' % feed
+                for feed in feeds
             )
         })
 
