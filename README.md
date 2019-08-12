@@ -1,5 +1,7 @@
 # poolcal
 
+_**Update (12 Aug 2019): HTML pool schedules no longer appear to be published on sfrecpark.org :/**_
+
 Transforms HTML pool schedules (from sfrecpark.org) into calendar events.
 
 See the published calendars at https://harto.github.io/poolcal/.
